@@ -52,13 +52,17 @@ public class UserController {
         }
     }
 
-    @GetMapping({"/listAllUsers", "/", ""})
+    @GetMapping({"/listAllUsers"})
     public String ListeAllUsers(Model model) {
+        getConnection();
+
+        List<User> users = new ArrayList<>();
+
         try {
             Statement statement = connection.createStatement();
             String requestSelect = "SELECT * FROM user";
             ResultSet resultat = statement.executeQuery(requestSelect);
-            List<User> users = new ArrayList<>();
+
 
             //étape 5: extraire les données
             while (resultat.next()) {
@@ -67,7 +71,7 @@ public class UserController {
                 String nom = resultat.getString(2);
                 String prenom = resultat.getString(3);
                 String email = resultat.getString(4);
-                String password = resultat.getString(4);
+                String password = resultat.getString(5);
 
 
                 User user = new User(id, nom, prenom, email, password);
@@ -77,12 +81,13 @@ public class UserController {
             for (User utilisateurs : users) {
                 System.out.println(utilisateurs);
             }
-            model.addAttribute("utilisateurs", users);
-            model.addAttribute("utilisateur");
+
+
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("Problème sélection");
         }
+        model.addAttribute("utilisateurs", users);
         return "users";
     }
 }
