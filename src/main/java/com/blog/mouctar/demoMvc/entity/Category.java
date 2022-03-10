@@ -1,20 +1,21 @@
 package com.blog.mouctar.demoMvc.entity;
 
+import java.util.List;
 
-import javax.persistence.*;
 
-@Entity
 public class Category {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
-    @Column
     private String name;
 
+    private List<Post> postList;
+
     public Category(){}
+    public Category(Long id, String name){
+        this.id = id;
+        this.name = name;
+    }
 
     public Category(String name) {
         this.name = name;
@@ -30,5 +31,13 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Post> getPostList() {
+        return postList;
+    }
+
+    public void setPostList(List<Post> postList) {
+        this.postList = postList;
     }
 }

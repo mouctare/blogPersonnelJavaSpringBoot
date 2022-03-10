@@ -1,40 +1,49 @@
 package com.blog.mouctar.demoMvc.entity;
 
 
-import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
-@Entity
+
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
-    @Column
     private String first_name;
 
-    @Column
     private String last_name;
 
-    @Column
     private String password;
 
-    @Column
     private String email;
 
-    public User(){}
+    private List<Post> posts = new ArrayList<>();
 
-    public User(Long id,  String first_name, String last_name, String email, String password) {
-        this.id = id;
-        this.first_name = first_name;
-        this.last_name = last_name;
+    private List<Comment> comments = new ArrayList<>();
+
+    public User(){
+
+    }
+
+    public User(Long id, String first_name, String last_name ){
+         this.id = id;
+         this.first_name = first_name;
+         this.last_name = last_name;
+    }
+
+    public User(Long id, String first_name, String last_name, String email, String password) {
+        this(id, first_name, last_name);
         this.email = email;
         this.password = password;
+
     }
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFirst_name() {
@@ -67,6 +76,23 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
     @Override

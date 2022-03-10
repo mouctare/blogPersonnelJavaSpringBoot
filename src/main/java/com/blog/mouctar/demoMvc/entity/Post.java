@@ -1,33 +1,47 @@
 package com.blog.mouctar.demoMvc.entity;
 
+import com.blog.mouctar.demoMvc.dto.CommentDto;
 
-import javax.persistence.*;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-@Entity
+
 public class Post {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
-    @Column
     private String title;
 
-    @Column
     private String description;
 
-    @Column
     private Date created_at;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private User user;
+    private Long userId;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "category_id")
-    private Category category;
+    Map<Long, String> users = new HashMap<>();
+
+
+    public Post() {
+
+    }
+
+    public Post(Long id, String title, String description, Date created_at) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.created_at = created_at;
+
+    }
+
+    public Post(Long id, String title, String description, Date created_at, Long userId) {
+        this(id, title, description, created_at);
+        this.userId = userId;
+
+    }
+
+   private List<CommentDto> commentList;
 
     public Long getId() {
         return id;
@@ -57,21 +71,30 @@ public class Post {
         this.created_at = created_at;
     }
 
-    public User getUser() {
-        return user;
+    public List<CommentDto> getCommentList() {
+       return commentList;
+   }
+
+   public void setCommentList(List<CommentDto> commentList) {
+       this.commentList = commentList;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public Long getUserId() {
+        return userId;
     }
 
-    public Category getCategory() {
-        return category;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", created_at=" + created_at +
+                ", commentList=" + commentList +
+                '}';
     }
-
-
 }

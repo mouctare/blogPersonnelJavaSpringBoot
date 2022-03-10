@@ -1,40 +1,61 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+ <link rel="stylesheet" type="text/css" href="css/style.css">
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
-<style>
-table, th, td {
-  border:1px solid black;
-}
-</style>
+ <link rel="stylesheet"
+ 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+ 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+ 	crossorigin="anonymous">
 </head>
 <body>
 
-<h2>Liste des utilisateurs</h2>
-<br/>
-<c:forEach var = "utilisateur" items = "${utilisateurs}">
-<table style="width:100%>
-  <tr>
-   <th>Id</th>
-     <th>Nom</th>
-     <th>Prenom</th>
-     <th>email</th>
-     <th>Mot de passe</th>
-  </tr>
-  <tr>
-    <td>${utilisateur.id}</td>
-    <td>${utilisateur.first_name}</td>
-    <td>${utilisateur.last_name}</td>
-     <td>${utilisateur.email}</td>
-      <d>${utilisateur.password}</td>
-    </tr>
-</table>
-</c:forEach>
+
+
+<div class="row">
+
+
+		<div class="container">
+			<h3 class="text-center">Liste des Utilisateurs</h3>
+			<hr>
+			<br>
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+
+                       <th>Nom</th>
+                         <th>Prenom</th>
+                         <th>email</th>
+                         <th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+
+
+					  <c:forEach var = "utilisateur" items = "${utilisateurs}">
+
+						<tr>
+				             <td><a class="disabledLink" href = "/afficheUtilisateur?userid=${utilisateur.id}">${utilisateur.last_name}</a></td>
+                               <td>${utilisateur.first_name}</td>
+                               <td>${utilisateur.email}</td>
+
+					           <td><a href="afficheFormUpdated?userid=${utilisateur.id}">Modifier</a></td>
+								&nbsp;&nbsp;&nbsp;&nbsp;
+
+                        <td><a class="disabledLink" href = "/delete?userid=${utilisateur.id}">Supprimer</a></td>
+						</tr>
+					</c:forEach>
+
+				</tbody>
+
+			</table>
+		</div>
+	</div>
+
 </body>
 </html>
